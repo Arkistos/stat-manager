@@ -63,19 +63,19 @@ export default class NavigationPanel extends React.Component{
         };
 
         const topCornerStyle = {
-            position: "relative",
+            position: "absolute",
             width:"38px",
             height: "38px",
             top: "-38px",
-            left:"138px",
+            left:screen.width/6 -38,
         };
 
         const bottomCornerStyle = {
-            position: "relative",
+            position: "absolute",
             width:"38px",
             height: "38px",
             top: "80px",
-            left:"175px"
+            left:screen.width/6 -38
         };
 
         return (
