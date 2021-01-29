@@ -1,4 +1,5 @@
 import React from "react";
+import { Transition } from 'react-transition-group';
 
 import NavigationButton from "./NavigationButton";
 
@@ -12,22 +13,36 @@ export default class NavigationPanel extends React.Component{
         super(props);
         this.state = {
             buttonSelect: 0,
-            selectorPosition: '134.9px'
-        }
+            selectorPosition: 0,
+            previousSelectorPosition : 0,
+            animationOn: false
+        };
         this.clickOnButton = this.clickOnButton.bind(this);
     }
 
 
     /** get wich button is on */
     clickOnButton(data){
-        this.setState({
+        //console.log(data)
+        this.setState((previousState, props)=>({
             buttonSelect: data.index,
-            selectorPosition: data.position + 10
-        });
+            selectorPosition: data.position + 10,
+            previousSelectorPosition: previousState.selectorPosition,
+        }));
+        //console.log(this.state);
+    }
+
+    componentDidUpdate(){
+        console.log(this.state.selectorPosition)
+        if(this.state.selectorPosition>0 && !this.state.animationOn){
+            console.log(true)
+            this.setState({animationOn: true})
+        }
     }
 
     render(){
 
+        console.log(this.state)
         const buttons = ["Home", "Calendar", "Teams", "Player"];
 
         var screen = {
@@ -51,7 +66,7 @@ export default class NavigationPanel extends React.Component{
             alignItems:"end"
         }
 
-        var selectorStyle = {
+        const selectorStyle = {
             position: 'absolute',
             top: this.state.selectorPosition,
             left: screen.width/5-screen.width/6,
@@ -59,7 +74,8 @@ export default class NavigationPanel extends React.Component{
             borderRadius: "50px 0px 0px 50px",
             width: screen.width/6,
             height: '80px',
-            zIndex: '-2'
+            zIndex: '-2',
+            transition: `top 300ms ease-in-out`,
         };
 
         const topCornerStyle = {
@@ -78,15 +94,27 @@ export default class NavigationPanel extends React.Component{
             left:screen.width/6 -38
         };
 
+        const transitionStyles = {
+            entering: { top: this.state.selectorPosition },
+            entered:  { top: this.state.selectorPosition },
+            exiting:  { top: this.statepreviousSelectorPosition },
+            exited:  { top: this.state.previousSelectorPosition },
+          };
+
+
         return (
             <div style={panelStyle}>
                 {buttons.map((element, index) =>
                     <NavigationButton key={index} clickOnThis={this.clickOnButton} text={element} index={index} on={this.state.buttonSelect===index?true:false}/>
                 )}
-                <div style={selectorStyle}>
+                <Transition in={this.state.animationOn} timeout={100}>
+                {state => (
+                <div style={{...selectorStyle, ...transitionStyles[state]}}>
                     <img style={bottomCornerStyle} src={bottomCorner} alt='round design top'/>
                     <img style={topCornerStyle} src={topCorner} alt='round design bottom'  />
                 </div>
+                )}
+                </Transition>
             </div>
         );
     }

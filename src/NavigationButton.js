@@ -27,11 +27,11 @@ export default class NavigationButton extends React.Component{
     render(){
         
         /** define if the button is on set the visibility */
-        var displayButton = this.props.on ? {opacity:"ff", visibility:"visible"} : {opacity:"00", visibility:"hidden"}; 
+        //var displayButton = this.props.on ? {opacity:"ff", visibility:"visible"} : {opacity:"00", visibility:"hidden"}; 
 
         /** style */
-        const textStyle={
-        };
+        //const textStyle={
+        //};
 
         const divStyle = {
             display: "flex",
