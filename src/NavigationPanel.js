@@ -23,26 +23,16 @@ export default class NavigationPanel extends React.Component{
 
     /** get wich button is on */
     clickOnButton(data){
-        //console.log(data)
         this.setState((previousState, props)=>({
             buttonSelect: data.index,
             selectorPosition: data.position + 10,
             previousSelectorPosition: previousState.selectorPosition,
         }));
-        //console.log(this.state);
     }
 
-    componentDidUpdate(){
-        console.log(this.state.selectorPosition)
-        if(this.state.selectorPosition>0 && !this.state.animationOn){
-            console.log(true)
-            this.setState({animationOn: true})
-        }
-    }
 
     render(){
 
-        console.log(this.state)
         const buttons = ["Home", "Calendar", "Teams", "Player"];
 
         var screen = {
@@ -94,27 +84,22 @@ export default class NavigationPanel extends React.Component{
             left:screen.width/6 -38
         };
 
-        const transitionStyles = {
-            entering: { top: this.state.selectorPosition },
-            entered:  { top: this.state.selectorPosition },
-            exiting:  { top: this.statepreviousSelectorPosition },
-            exited:  { top: this.state.previousSelectorPosition },
-          };
-
 
         return (
             <div style={panelStyle}>
                 {buttons.map((element, index) =>
                     <NavigationButton key={index} clickOnThis={this.clickOnButton} text={element} index={index} on={this.state.buttonSelect===index?true:false}/>
                 )}
-                <Transition in={this.state.animationOn} timeout={100}>
-                {state => (
-                <div style={{...selectorStyle, ...transitionStyles[state]}}>
-                    <img style={bottomCornerStyle} src={bottomCorner} alt='round design top'/>
-                    <img style={topCornerStyle} src={topCorner} alt='round design bottom'  />
-                </div>
-                )}
-                </Transition>
+                { this.state.selectorPosition>0 && 
+                    <Transition in={true} timeout={25} >
+                        {state => (
+                            <div style={{...selectorStyle}}>
+                                <img style={bottomCornerStyle} src={bottomCorner} alt='round design top'/>
+                                <img style={topCornerStyle} src={topCorner} alt='round design bottom'  />
+                            </div>
+                        )}
+                    </Transition>
+                }
             </div>
         );
     }
