@@ -32,9 +32,10 @@ export default class NavigationPanel extends React.Component{
 
 
     render(){
-        console.log(window.innerWidth);
 
         const buttons = ["Home", "Calendar", "Teams", "Player"];
+
+        const bottomPanelSize = 100
 
         var screen = {
             width: window.innerWidth,
@@ -42,17 +43,17 @@ export default class NavigationPanel extends React.Component{
         }
 
         var panelStyle = {
-            height: screen.height,
-            width: screen.width/5,
+            height: screen.width>500?screen.height:bottomPanelSize,
+            width: screen.width>500?screen.width/5:window.innerWidth,
             position: "fixed",
-            top:"0",
+            top:screen.width>500?"0":screen.height-bottomPanelSize,
             left: "0",
             backgroundImage: `url(${basketballTexture})`,
-            backgroundSize: 400,
+            backgroundSize: screen.width>500?'400px':screen.width,
             backgroundRepeat: "repeat-y",
             opacity: "0.8",
             display: "flex",
-            flexDirection: 'column',
+            flexDirection: screen.width>500?'column':'row',
             justifyContent: "center",
             alignItems:"end"
         }

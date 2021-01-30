@@ -57,7 +57,8 @@ export default class NavigationButton extends React.Component{
         const buttonImageStyle = {
             width: "60px",
             height: "60px",
-            marginLeft: "10px"
+            marginLeft: "10px",
+            marginTop: "5px"
         };
 
 
