@@ -32,6 +32,7 @@ export default class NavigationPanel extends React.Component{
 
 
     render(){
+        console.log(window.innerWidth);
 
         const buttons = ["Home", "Calendar", "Teams", "Player"];
 

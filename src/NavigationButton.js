@@ -1,6 +1,9 @@
 import React from "react";
 
-
+import Home from "./images/Home.png";
+import Calendar from "./images/Calendar.png";
+import Teams from "./images/Teams.png";
+import Player from "./images/Player.png";
 import index from "./index.css";
 
 export default class NavigationButton extends React.Component{
@@ -8,6 +11,14 @@ export default class NavigationButton extends React.Component{
     constructor(props){
         super(props);
         this.buttonClick = this.buttonClick.bind(this);
+        this.state = {
+            imagesButton : {
+                0: Home,
+                1: Calendar,
+                2: Teams,
+                3: Player
+            }
+        }
     }
 
 
@@ -28,6 +39,7 @@ export default class NavigationButton extends React.Component{
         
 
         const divStyle = {
+
             display: "flex",
             width: window.innerWidth/5,
             height: "100px",
@@ -48,7 +60,10 @@ export default class NavigationButton extends React.Component{
         return (
             <div onClick={this.buttonClick}>
                 <div id={this.props.index} style={divStyle}>
-                    {this.props.text}
+                    {window.innerWidth>900 
+                        ? this.props.text
+                        : <img src={this.state.imagesButton[this.props.index]}/>
+                    }
                 </div>
             </div>
         );
