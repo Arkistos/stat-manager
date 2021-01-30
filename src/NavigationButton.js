@@ -39,7 +39,6 @@ export default class NavigationButton extends React.Component{
         
 
         const divStyle = {
-
             display: "flex",
             width: window.innerWidth/5,
             height: "100px",
@@ -55,6 +54,12 @@ export default class NavigationButton extends React.Component{
             zIndex: '2'    
         };
 
+        const buttonImageStyle = {
+            width: "60px",
+            height: "60px",
+            marginLeft: "10px"
+        };
+
 
 
         return (
@@ -62,7 +67,7 @@ export default class NavigationButton extends React.Component{
                 <div id={this.props.index} style={divStyle}>
                     {window.innerWidth>900 
                         ? this.props.text
-                        : <img src={this.state.imagesButton[this.props.index]}/>
+                        : <img style={buttonImageStyle} src={this.state.imagesButton[this.props.index]} alt={this.props.text}/>
                     }
                 </div>
             </div>
