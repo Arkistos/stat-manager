@@ -24,7 +24,14 @@ export default class NavigationButton extends React.Component{
 
     /** send to parent index and postition on the element clicked */
     buttonClick(){
-        this.props.clickOnThis({index : this.props.index, position: document.getElementById(this.props.index).getBoundingClientRect().top });
+        this.props.clickOnThis({
+            index : this.props.index,
+            position: {
+                top: document.getElementById(this.props.index).getBoundingClientRect().top,
+                left: document.getElementById(this.props.index).getBoundingClientRect().left
+            }
+            
+        });
     }
 
     /** init the selector position */
@@ -51,7 +58,7 @@ export default class NavigationButton extends React.Component{
             lineHeight: "36px",
             cursor: "pointer",
             justifyContent: 'center',
-            zIndex: '2'    
+            zIndex: '10'    
         };
 
         const buttonImageStyle = {

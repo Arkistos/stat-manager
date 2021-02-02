@@ -15,6 +15,7 @@ export default class NavigationPanel extends React.Component{
             buttonSelect: 0,
             selectorPosition: 0,
             previousSelectorPosition : 0,
+            left : 0,
             animationOn: false
         };
         this.clickOnButton = this.clickOnButton.bind(this);
@@ -25,14 +26,15 @@ export default class NavigationPanel extends React.Component{
     clickOnButton(data){
         this.setState((previousState, props)=>({
             buttonSelect: data.index,
-            selectorPosition: data.position + 10,
+            selectorPosition: data.position.top + 10,
+            left: data.position.left,
             previousSelectorPosition: previousState.selectorPosition,
         }));
     }
 
 
     render(){
-
+        console.log(this.state.selectorPosition)
         const buttons = ["Home", "Calendar", "Teams", "Player"];
 
         const bottomPanelSize = 100
@@ -55,19 +57,21 @@ export default class NavigationPanel extends React.Component{
             display: "flex",
             flexDirection: screen.width>500?'column':'row',
             justifyContent: "center",
-            alignItems:"end"
+            alignItems:"end",
+            zIndex: '4'
         }
 
         const selectorStyle = {
             position: 'absolute',
-            top: this.state.selectorPosition,
-            left: screen.width/5-screen.width/6,
+            top: screen.width>500?this.state.selectorPosition:-0,
+            left: screen.width>500?screen.width/5-screen.width/6:this.state.left+13,
             backgroundColor: '#ffffff',
             borderRadius: "50px 0px 0px 50px",
-            width: screen.width/6,
+            width: (screen.width/6),
             height: '80px',
-            zIndex: '-2',
-            transition: `top 300ms ease-in-out`,
+            zIndex: '-1',
+            transition: `top 300ms ease-in-out, left 300ms ease-in-out`,
+            transform: screen.width<500?'rotate(270deg)':'rotate(0deg)'
         };
 
         const topCornerStyle = {
