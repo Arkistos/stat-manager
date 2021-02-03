@@ -1,16 +1,15 @@
 import React from "react";
-
 import Home from "./images/Home.png";
 import Calendar from "./images/Calendar.png";
 import Teams from "./images/Teams.png";
 import Player from "./images/Player.png";
 import index from "./index.css";
 
+
 export default class NavigationButton extends React.Component{
 
     constructor(props){
         super(props);
-        this.buttonClick = this.buttonClick.bind(this);
         this.state = {
             imagesButton : {
                 0: Home,
@@ -18,10 +17,10 @@ export default class NavigationButton extends React.Component{
                 2: Teams,
                 3: Player
             }
-        }
-        this.initPosition = this.initPosition.bind(this)
+        };
+        this.buttonClick = this.buttonClick.bind(this);
+        this.initPosition = this.initPosition.bind(this);
     }
-
 
     /** send to parent index and postition on the element clicked */
     buttonClick(){
@@ -31,10 +30,10 @@ export default class NavigationButton extends React.Component{
                 top: document.getElementById(this.props.index).getBoundingClientRect().top,
                 left: document.getElementById(this.props.index).getBoundingClientRect().left
             }
-            
         });
     }
 
+    /** set the position without animation when resize the window */
     initPosition(){
         if(this.props.on){
             this.props.clickOnThis({
@@ -42,13 +41,11 @@ export default class NavigationButton extends React.Component{
                 position: {
                     top: -10,
                     left: 0
-                }
-                
+                }  
             });
             this.buttonClick();
         }
     }
-
 
     /** init the selector position */
     componentDidMount(){
@@ -57,7 +54,6 @@ export default class NavigationButton extends React.Component{
         }
         window.addEventListener('resize', this.initPosition);
     }
-
 
     render(){
     
@@ -84,12 +80,10 @@ export default class NavigationButton extends React.Component{
             marginTop: "10px"
         };
 
-
-
         return (
             <div onClick={this.buttonClick}>
                 <div id={this.props.index} style={divStyle}>
-                    {window.innerWidth>900 
+                    { window.innerWidth>900 
                         ? this.props.text
                         : <img style={buttonImageStyle} src={this.state.imagesButton[this.props.index]} alt={this.props.text}/>
                     }

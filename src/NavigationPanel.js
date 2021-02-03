@@ -13,24 +13,22 @@ export default class NavigationPanel extends React.Component{
         super(props);
         this.state = {
             buttonSelect: 0,
-            selectorPosition: 0,
-            previousSelectorPosition : 0,
-            left : 0,
-            animationOn: false
+            selectorPosition: {
+                top: 0,
+                left: 0
+            }
         };
         this.clickOnButton = this.clickOnButton.bind(this);
-
     }
-
 
     /** get wich button is on */
     clickOnButton(data){
-        console.log(data)
         this.setState((previousState, props)=>({
             buttonSelect: data.index,
-            selectorPosition: data.position.top + 10,
-            left: data.position.left,
-            previousSelectorPosition: previousState.selectorPosition,
+            selectorPosition: {
+                top: data.position.top + 10,
+                left: data.position.left
+            }
         }));
     }
 
@@ -41,10 +39,8 @@ export default class NavigationPanel extends React.Component{
 
 
     render(){
-        //console.log(this.state.selectorPosition)
-        const buttons = ["Home", "Calendar", "Teams", "Player"];
-
-        const BOTTOMPANELSIZE = 80
+        const BUTTONS = ["Home", "Calendar", "Teams", "Player"];
+        const BOTTOMPANELSIZE = 80;
 
         var screen = {
             width: window.innerWidth,
@@ -70,8 +66,8 @@ export default class NavigationPanel extends React.Component{
 
         const selectorStyle = {
             position: 'absolute',
-            top: screen.width>500?this.state.selectorPosition:0,
-            left: screen.width>500?screen.width/5-screen.width/6:this.state.left+13,
+            top: screen.width>500?this.state.selectorPosition.top:0,
+            left: screen.width>500?screen.width/5-screen.width/6:this.state.selectorPosition.left+13,
             backgroundColor: '#ffffff',
             borderRadius: "50px 0px 0px 50px",
             width: screen.width>500?screen.width:BOTTOMPANELSIZE,
@@ -100,10 +96,10 @@ export default class NavigationPanel extends React.Component{
 
         return (
             <div style={panelStyle}>
-                {buttons.map((element, index) =>
+                {BUTTONS.map((element, index) =>
                     <NavigationButton key={index} clickOnThis={this.clickOnButton} text={element} index={index} on={this.state.buttonSelect==index?true:false}/>
                 )}
-                { this.state.selectorPosition>0 && 
+                { this.state.selectorPosition.top>0 && 
                     <Transition in={true} timeout={25} >
                         {state => (
                             <div style={{...selectorStyle}}>
