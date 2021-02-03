@@ -19,11 +19,13 @@ export default class NavigationPanel extends React.Component{
             animationOn: false
         };
         this.clickOnButton = this.clickOnButton.bind(this);
+
     }
 
 
     /** get wich button is on */
     clickOnButton(data){
+        console.log(data)
         this.setState((previousState, props)=>({
             buttonSelect: data.index,
             selectorPosition: data.position.top + 10,
@@ -32,12 +34,17 @@ export default class NavigationPanel extends React.Component{
         }));
     }
 
+ 
+
+
+
+
 
     render(){
-        console.log(this.state.selectorPosition)
+        //console.log(this.state.selectorPosition)
         const buttons = ["Home", "Calendar", "Teams", "Player"];
 
-        const bottomPanelSize = 100
+        const BOTTOMPANELSIZE = 80
 
         var screen = {
             width: window.innerWidth,
@@ -45,10 +52,10 @@ export default class NavigationPanel extends React.Component{
         }
 
         var panelStyle = {
-            height: screen.width>500?screen.height:bottomPanelSize,
+            height: screen.width>500?screen.height:BOTTOMPANELSIZE,
             width: screen.width>500?screen.width/5:window.innerWidth,
             position: "fixed",
-            top:screen.width>500?"0":screen.height-bottomPanelSize,
+            top:screen.width>500?"0":screen.height-BOTTOMPANELSIZE,
             left: "0",
             backgroundImage: `url(${basketballTexture})`,
             backgroundSize: screen.width>500?'400px':screen.width,
@@ -63,11 +70,11 @@ export default class NavigationPanel extends React.Component{
 
         const selectorStyle = {
             position: 'absolute',
-            top: screen.width>500?this.state.selectorPosition:-0,
+            top: screen.width>500?this.state.selectorPosition:0,
             left: screen.width>500?screen.width/5-screen.width/6:this.state.left+13,
             backgroundColor: '#ffffff',
             borderRadius: "50px 0px 0px 50px",
-            width: (screen.width/6),
+            width: screen.width>500?screen.width:BOTTOMPANELSIZE,
             height: '80px',
             zIndex: '-1',
             transition: `top 300ms ease-in-out, left 300ms ease-in-out`,
@@ -79,7 +86,7 @@ export default class NavigationPanel extends React.Component{
             width:"38px",
             height: "38px",
             top: "-38px",
-            left:screen.width/6 -38,
+            left:screen.width>500?screen.width/6 -38:45,
         };
 
         const bottomCornerStyle = {
@@ -87,14 +94,14 @@ export default class NavigationPanel extends React.Component{
             width:"38px",
             height: "38px",
             top: "80px",
-            left:screen.width/6 -38
+            left:screen.width>500?screen.width/6 -38:45,
         };
 
 
         return (
             <div style={panelStyle}>
                 {buttons.map((element, index) =>
-                    <NavigationButton key={index} clickOnThis={this.clickOnButton} text={element} index={index} on={this.state.buttonSelect===index?true:false}/>
+                    <NavigationButton key={index} clickOnThis={this.clickOnButton} text={element} index={index} on={this.state.buttonSelect==index?true:false}/>
                 )}
                 { this.state.selectorPosition>0 && 
                     <Transition in={true} timeout={25} >

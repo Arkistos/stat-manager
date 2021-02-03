@@ -19,6 +19,7 @@ export default class NavigationButton extends React.Component{
                 3: Player
             }
         }
+        this.initPosition = this.initPosition.bind(this)
     }
 
 
@@ -34,17 +35,32 @@ export default class NavigationButton extends React.Component{
         });
     }
 
-    /** init the selector position */
-    componentDidMount(){
-        if(this.props.index === 0){
+    initPosition(){
+        if(this.props.on){
+            this.props.clickOnThis({
+                index : this.props.index,
+                position: {
+                    top: -10,
+                    left: 0
+                }
+                
+            });
             this.buttonClick();
         }
     }
 
 
-    render(){
-        
+    /** init the selector position */
+    componentDidMount(){
+        if(this.props.index === 0){
+            this.buttonClick();
+        }
+        window.addEventListener('resize', this.initPosition);
+    }
 
+
+    render(){
+    
         const divStyle = {
             display: "flex",
             width: window.innerWidth/5,
@@ -65,7 +81,7 @@ export default class NavigationButton extends React.Component{
             width: "60px",
             height: "60px",
             marginLeft: "10px",
-            marginTop: "5px"
+            marginTop: "10px"
         };
 
 
