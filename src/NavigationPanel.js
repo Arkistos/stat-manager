@@ -70,7 +70,7 @@ export default class NavigationPanel extends React.Component{
             left: screen.width>500?screen.width/5-screen.width/6:this.state.selectorPosition.left+13,
             backgroundColor: '#ffffff',
             borderRadius: "50px 0px 0px 50px",
-            width: screen.width>500?screen.width:BOTTOMPANELSIZE,
+            width: screen.width>500?screen.width/5:BOTTOMPANELSIZE,
             height: '80px',
             zIndex: '-1',
             transition: `top 300ms ease-in-out, left 300ms ease-in-out`,

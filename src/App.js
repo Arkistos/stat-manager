@@ -1,6 +1,7 @@
 import React from "react";
 
 import NavigationPanel from "./NavigationPanel";
+import DisplayPanel from "./DisplayPanel";
 
 export default class App extends React.Component{
 
@@ -19,6 +20,7 @@ export default class App extends React.Component{
     return (
       <div className="App">
         <NavigationPanel/>
+        <DisplayPanel/>
       </div>
     );
   }
