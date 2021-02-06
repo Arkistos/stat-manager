@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Score from './Score.js';
+
 import LogoBackground from './images/logo_background.png';
 import Logo from './images/logo.png';
 import basketballTexture from "./images/basketballTexture.jpg";
@@ -39,7 +41,8 @@ export default class DisplayPanel extends React.Component{
             color: '#023059'
         }
 
-        const divStyle = {
+        const headerStyle = {
+            backgroundColor: '#ffffff',
             display:'flex',
             flexDirection: 'row',
             justifyContent: screen.width>500?'flex-start':'center',
@@ -50,11 +53,33 @@ export default class DisplayPanel extends React.Component{
             opacity: "0.8",
         }
 
+        const listScores = {
+            position: 'relative',
+            top:'0px',
+            right:'0px',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent:'space-evenly',
+            alignItems:'center',
+            flexWrap: 'wrap',
+
+            height: window.innerHeight-90,
+            //backgroundColor: 'yellow'
+        };
+        console.log(document.getElementById('website_name').getBoundingClientRect().height);
         return(
+            
             <div style={displayStyle}>
-                <div style={divStyle} id='website_name'>
+                <div style={headerStyle} id='website_name'>
                     <img style={logoStyle} src={Logo} />
                     <div style={titleStyle}>NBA SCORES</div>
+                </div>
+                <div style={listScores}>
+                    <Score/>
+                    <Score/>
+                    <Score/>
+                    <Score/>
+                    <Score/>
                 </div>
             </div>
         );
