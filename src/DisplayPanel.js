@@ -9,6 +9,12 @@ import basketballTexture from "./images/basketballTexture.jpg";
 import index from "./index.css";
 
 export default class DisplayPanel extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            scores: 3
+        }
+    }
 
     render(){
         var screen = {
@@ -53,20 +59,25 @@ export default class DisplayPanel extends React.Component{
             opacity: "0.8",
         }
 
+        //const panelHeight = window.innerHeight - document.getElementById('website_name').getBoundingClientRect().height
         const listScores = {
             position: 'relative',
             top:'0px',
             right:'0px',
             display: 'flex',
             flexDirection: 'column',
-            justifyContent:'space-evenly',
+            justifyContent:this.state.score>5?'flex-start':'space-evenly',
             alignItems:'center',
-            flexWrap: 'wrap',
+            //overflow: 'auto',
+            //flexWrap: 'wrap',
 
-            height: window.innerHeight-90,
-            //backgroundColor: 'yellow'
+            overflowY: 'scroll',
+            scrollBehavior: 'smooth',
+
+            height: screen.width>500?window.innerHeight-90: window.innerHeight-170,
+            
         };
-        console.log(document.getElementById('website_name').getBoundingClientRect().height);
+        //console.log(document.getElementById('website_name').getBoundingClientRect().height);
         return(
             
             <div style={displayStyle}>
@@ -74,13 +85,13 @@ export default class DisplayPanel extends React.Component{
                     <img style={logoStyle} src={Logo} />
                     <div style={titleStyle}>NBA SCORES</div>
                 </div>
-                <div style={listScores}>
+                <scroll-container style={listScores}>
                     <Score/>
                     <Score/>
                     <Score/>
-                    <Score/>
-                    <Score/>
-                </div>
+                    
+            
+                </scroll-container>
             </div>
         );
     }

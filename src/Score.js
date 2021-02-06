@@ -32,7 +32,8 @@ export default class Score extends React.Component{
             fontStyle: 'normal',
             fontSize: '36px',
             fontWeight: '500',
-            cursor: 'pointer'
+            cursor: 'pointer',
+            marginBottom: '50px'
         }
 
         const logoStyle = {
