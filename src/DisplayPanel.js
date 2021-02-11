@@ -12,11 +12,33 @@ export default class DisplayPanel extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            scores: 3
+            scores: 3,
+            APItoken: "dc08a3db-36d5-4af1-843c-72e44d3589ef"
         }
     }
 
+    componentDidMount(){
+        console.log(process.env.REACT_APP_API_KEY);
+        fetch("https://api.sportsdata.io/v3/nba/scores/json/GamesByDate/2021-FEB-09", {
+            "method": "GET",
+            //"mode": "no-cors",
+	        "headers": {
+            //"languageId": 10,
+		    "Ocp-Apim-Subscription-Key": process.env.REACT_APP_API_KEY
+	    }
+        })
+.then(response => {
+	console.log(response.json());
+})
+.catch(err => {
+	console.error(err);
+});
+    }
+
     render(){
+
+        
+
         var screen = {
             width: window.innerWidth,
             height: window.innerHeight
