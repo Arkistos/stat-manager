@@ -12,8 +12,7 @@ export default class DisplayPanel extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            scores: 3,
-            APItoken: "dc08a3db-36d5-4af1-843c-72e44d3589ef"
+            scores: 3
         }
     }
 
