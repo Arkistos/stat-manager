@@ -41,13 +41,24 @@ export default class Score extends React.Component{
             height: '70px'
         }
 
+        
 
         return(
             <div style={boxStyle}>
-                <img style={logoStyle} src={JazzLogo}/>
-                <div>96 - 130</div>
-                <img style={logoStyle} src={NetsLogo}/>
+                <div style={logoStyle}>{this.props.awayTeam}</div>
+                <div>{this.props.score.away} - {this.props.score.home}</div>
+                <div style={logoStyle}>{this.props.homeTeam}</div>
             </div>
         );
     }
 }
+/*
+<img style={logoStyle} src={JazzLogo}/>
+                <div>96 - 130</div>
+                <img style={logoStyle} src={NetsLogo}/>
+
+                109 = 171
+                114=  179
+                1,57
+
+                */

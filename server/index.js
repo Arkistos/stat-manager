@@ -19,7 +19,7 @@ app.get("/api/lastScores", (req, res) =>{
       console.log(`Error reading file from disk: ${err}`);
     } else {
       scores = JSON.parse(data);
-      if(scores.timestamp>Date.now()){
+      if(scores.timestamp<Date.now()){
         var today = test.getFullYear()+'-'+test.toLocaleString('en', { month: 'short' }).toUpperCase()+'-'+(test.getDate()-2);
         console.log(today)
         var req=unirest('GET', "https://api.sportsdata.io/v3/nba/scores/json/GamesByDate/"+today);
@@ -44,7 +44,7 @@ app.get("/api/lastScores", (req, res) =>{
           })
         })
       } else {
-        res.json({scores:scores.data});
+        res.json({scores:JSON.parse(scores.data)});
       }
     }
   });  

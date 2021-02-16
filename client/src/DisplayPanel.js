@@ -12,7 +12,8 @@ export default class DisplayPanel extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            date: new Date()
+            date: new Date(),
+            scores : []
         }
     }
 
@@ -32,13 +33,17 @@ export default class DisplayPanel extends React.Component{
         .catch(err => {
 	        console.error(err);
         });*/
-        fetch("/api", {
+        fetch("/api/lastScores", {
             "method": "GET",
             "datatype": "json"
         })
-        .then(res => {
-            console.log(res.json())
-        });
+        /*.then(res => {
+            //var scores = res.json();
+            //console.log(res.json());
+            //var scores = res.json()
+        })*/
+        .then(res => res.json())
+        .then(json => this.setState({scores : json.scores}));
 
     }
 
@@ -115,9 +120,9 @@ export default class DisplayPanel extends React.Component{
                     <div style={titleStyle}>NBA SCORES</div>
                 </div>
                 <scroll-container style={listScores}>
-                    <Score/>
-                    <Score/>
-                    <Score/>
+                    {this.state.scores.map((score, key) => (
+                        <Score key={key} homeTeam={score.HomeTeam} score={{home: Math.round(score.HomeTeamScore/1.57), away: Math.round(score.AwayTeamScore/1.57)}} awayTeam={score.AwayTeam} />
+                    ))}
                     
             
                 </scroll-container>
